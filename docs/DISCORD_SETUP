@@ -1,0 +1,124 @@
+# Discord OAuth Setup Guide
+
+This guide walks you through setting up Discord OAuth for the reporting website.
+
+## Step 1: Create Discord Application
+
+1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
+2. Click "New Application"
+3. Enter a name for your application (e.g., "Report System")
+4. Click "Create"
+
+## Step 2: Configure OAuth
+
+1. In your Discord application, go to "OAuth2" section
+2. Note your **Client ID** and **Client Secret**
+3. In "Redirects", add:
+   - For development: `http://localhost:3000/api/auth/callback/discord`
+   - For production: `https://yourdomain.com/api/auth/callback/discord`
+
+## Step 3: Create Discord Webhook
+
+1. Go to your Discord server
+2. Right-click on the channel where you want notifications
+3. Click "Edit Channel"
+4. Go to "Integrations" → "Webhooks"
+5. Click "Create Webhook"
+6. Copy the webhook URL
+
+## Step 4: Get Your Discord User ID
+
+1. Enable Developer Mode in Discord (User Settings → Advanced → Developer Mode)
+2. Right-click on your username
+3. Click "Copy User ID"
+4. This ID should be added to `STAFF_USER_IDS` environment variable
+
+## Step 5: Generate NextAuth Secret
+
+Run this command to generate a secure secret:
+
+```bash
+# On Linux/Mac
+openssl rand -base64 32
+
+# On Windows (PowerShell)
+[System.Convert]::ToBase64String((1..32 | ForEach-Object { Get-Random -Maximum 256 }))
+
+# Alternative method
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+```
+
+## Environment Variables
+
+Update your `.env.local` file with these values:
+
+```env
+DISCORD_CLIENT_ID=your_client_id_here
+DISCORD_CLIENT_SECRET=your_client_secret_here
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_generated_secret_here
+DISCORD_WEBHOOK_URL=your_webhook_url_here
+STAFF_USER_IDS=your_discord_user_id_here
+```
+
+## Testing OAuth Integration
+
+1. Start your development server: `npm run dev`
+2. Go to `http://localhost:3000/report`
+3. Click "Start Report" button
+4. You should be redirected to Discord for authentication
+5. After authorizing, you should be redirected back to the form
+
+## Troubleshooting
+
+### "Invalid Redirect URI"
+
+- Ensure the redirect URI in Discord matches exactly: `http://localhost:3000/api/auth/callback/discord`
+- Check for typos and trailing slashes
+
+### "Invalid Client"
+
+- Verify `DISCORD_CLIENT_ID` and `DISCORD_CLIENT_SECRET` are correct
+- Make sure there are no extra spaces in environment variables
+
+### "NextAuth Configuration Error"
+
+- Ensure `NEXTAUTH_SECRET` is set and not empty
+- Verify `NEXTAUTH_URL` matches your actual domain
+
+### Staff Access Issues
+
+- Confirm your Discord User ID is in `STAFF_USER_IDS`
+- Multiple staff IDs should be comma-separated: `123456789,987654321`
+
+### Webhook Not Working
+
+- Test the webhook URL directly using a tool like Postman
+- Ensure the webhook URL is from the correct Discord channel
+- Check Discord server permissions
+
+## Production Considerations
+
+### Security
+
+- Use strong, unique secrets
+- Regularly rotate your `NEXTAUTH_SECRET`
+- Keep Discord credentials secure
+
+### Discord Application Settings
+
+- Add your production domain to OAuth redirects
+- Update webhook URLs for production channels
+- Consider using different webhooks for different environments
+
+### Database
+
+- Use PostgreSQL or similar for production
+- Set up proper database backups
+- Monitor database performance
+
+## Additional Resources
+
+- [Discord OAuth2 Documentation](https://discord.com/developers/docs/topics/oauth2)
+- [NextAuth.js Discord Provider](https://next-auth.js.org/providers/discord)
+- [Discord Webhook Documentation](https://discord.com/developers/docs/resources/webhook)
