@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  discordId     String    @unique
+  username      String
+  discriminator String?
+  avatar        String?
+  email         String?
+  isStaff       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  reports       Report[]
+  reportUpdates ReportUpdate[]
+  
+  @@map("users")
+}
+
+model Report {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  caseNumber    String       @unique
+  referenceNumber String     @unique
+  reportType    ReportType
+  urgencyLevel  UrgencyLevel @default(LOW)
+  status        ReportStatus @default(OPEN)
+  
+  // Report content
+  title         String
+  description   String
+  evidence      String?      // JSON string for file URLs/data
+  
+  // Reporter information
+  reporterId    String       @db.ObjectId
+  reporter      User         @relation(fields: [reporterId], references: [id])
+  
+  // Timestamps
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  
+  // Relations
+  updates       ReportUpdate[]
+  
+  @@map("reports")
+}
+
+model ReportUpdate {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  reportId  String   @db.ObjectId
+  report    Report   @relation(fields: [reportId], references: [id], onDelete: Cascade)
+  
+  staffId   String   @db.ObjectId
+  staff     User     @relation(fields: [staffId], references: [id])
+  
+  action    String   // e.g., "Status changed", "Note added", "Assigned"
+  details   String?  // Additional details about the update
+  
+  createdAt DateTime @default(now())
+  
+  @@map("report_updates")
+}
+
+enum ReportType {
+  DISCORD_MATTERS
+  SECURITY_ISSUES
+  DATA_PROTECTION
+  SAFEGUARDING
+}
+
+enum UrgencyLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ReportStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+  ESCALATED
+}
