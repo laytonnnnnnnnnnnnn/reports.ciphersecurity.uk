@@ -1,0 +1,31 @@
+name = "discord-reporting-website"
+compatibility_date = "2024-09-29"
+
+# Enable Node.js compatibility for Prisma
+node_compat = true
+
+# Environment variables (set these in Cloudflare dashboard)
+[vars]
+NEXTAUTH_URL = "https://your-domain.pages.dev"
+APP_NAME = "Discord Reporting System"
+
+# Build configuration
+[build]
+command = "npm run build"
+
+# Functions configuration for API routes
+[[pages.functions]]
+pattern = "/api/*"
+environment = "production"
+
+# KV bindings for session storage (optional)
+# Uncomment and configure if using KV for sessions
+# kv_namespaces = [
+#   { binding = "SESSIONS", id = "your-kv-namespace-id" }
+# ]
+
+# D1 database binding for production
+# Uncomment and configure for production database
+# d1_databases = [
+#   { binding = "DB", database_name = "discord-reporting-db", database_id = "your-database-id" }
+# ]
