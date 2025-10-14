@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Security - Issue Reporting Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="auth.js"></script>
+</head>
+<body>
+    <div id="particles-container"></div>
+    
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Cipher Security</span>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#report" class="nav-link">Report Issue</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <div class="auth-section">
+                    <div id="auth-logged-out" class="auth-state">
+                        <button class="auth-button login-btn" onclick="simulateDiscordLogin()">
+                            <i class="fab fa-discord"></i>
+                            Login (Demo Mode)
+                        </button>
+                    </div>
+                    <div id="auth-logged-in" class="auth-state" style="display: none;">
+                        <div class="user-info">
+                            <img id="user-avatar" class="user-avatar" src="" alt="User Avatar">
+                            <span id="user-name" class="user-name"></span>
+                        </div>
+                        <button class="auth-button logout-btn" onclick="logoutUser()">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section id="home" class="hero-section active">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Cipher Security</span><br>
+                        Issue Reporting Portal
+                    </h1>
+                    <p class="hero-subtitle">
+                        Secure and confidential reporting for Discord-related concerns. 
+                        Your safety and security are our top priorities.
+                    </p>
+                    <button class="cta-button" onclick="showReportSection()">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Report an Issue
+                    </button>
+                </div>
+                
+                <!-- Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class="fas fa-shield-check"></i>
+                        <span>100% Secure</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-user-secret"></i>
+                        <span>Anonymous Option</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-clock"></i>
+                        <span>24/7 Response</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-award"></i>
+                        <span>Professional Team</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Features Section -->
+            <div class="features-section">
+                <div class="container">
+                    <h2 class="features-title">Why Choose Cipher Security?</h2>
+                    
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3>End-to-End Security</h3>
+                            <p>Your reports are encrypted and transmitted securely. We use industry-standard security protocols to protect your data and maintain confidentiality.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <h3>Expert Investigation Team</h3>
+                            <p>Our trained professionals have years of experience in handling Discord community issues, security concerns, and safeguarding matters.</p>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <h3>Rapid Response</h3>
+                            <p>Critical issues receive immediate attention. Our team operates 24/7 to ensure urgent matters are addressed without delay.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistics Section -->
+            <div class="stats-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">2,450+</div>
+                            <div class="stat-label">Issues Resolved</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">99.8%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">15 min</div>
+                            <div class="stat-label">Avg Response Time</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Servers Protected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Process Section -->
+            <div class="process-section">
+                <div class="container">
+                    <h2 class="process-title">How It Works</h2>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Choose Report Type</h4>
+                                <p>Select the category that best matches your concern from our three specialized reporting options.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Fill Detailed Form</h4>
+                                <p>Provide comprehensive information using our guided forms designed for each specific issue type.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Secure Submission</h4>
+                                <p>Your report is encrypted and immediately forwarded to our specialized investigation team.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Professional Review</h4>
+                                <p>Our experts analyze your report and take appropriate action within industry-standard timeframes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CTA Section -->
+            <div class="home-cta-section">
+                <div class="container">
+                    <div class="cta-content">
+                        <h2>Ready to Make Your Report?</h2>
+                        <p>Don't wait - report issues quickly and securely. Your community's safety depends on it.</p>
+                        <div class="cta-buttons">
+                            <button class="btn-primary large" onclick="showReportSection()">
+                                <i class="fas fa-shield-alt"></i>
+                                Start Report Now
+                            </button>
+                            <a href="#contact" class="btn-secondary large">
+                                <i class="fas fa-phone"></i>
+                                Emergency Contact
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="report" class="report-section">
+            <div class="container">
+                <h2 class="section-title">Select Report Type</h2>
+                <p class="section-subtitle">Choose the category that best describes your concern</p>
+                
+                <div class="report-cards">
+                    <div class="report-card" data-type="staff">
+                        <div class="card-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h3>Report Staff Member</h3>
+                        <p>Report inappropriate behavior, abuse of power, or policy violations by server staff members.</p>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Confidential</span>
+                            <span><i class="fas fa-check"></i> Anonymous Option</span>
+                            <span><i class="fas fa-check"></i> Priority Review</span>
+                        </div>
+                        <button class="card-button">File Report</button>
+                    </div>
+
+                    <div class="report-card" data-type="security">
+                        <div class="card-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <h3>General Report</h3>
+                        <p>Report rule breaking, Terms of Service violations, spam, inappropriate behavior, or other community issues.</p>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Quick Review</span>
+                            <span><i class="fas fa-check"></i> Fair Investigation</span>
+                            <span><i class="fas fa-check"></i> Appropriate Action</span>
+                        </div>
+                        <button class="card-button">Report Violation</button>
+                    </div>
+
+                    <div class="report-card" data-type="safeguarding">
+                        <div class="card-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h3>Safeguarding Concerns</h3>
+                        <p>Report child protection issues, harassment, or any concerns about member safety and wellbeing.</p>
+                        <div class="card-features">
+                            <span><i class="fas fa-check"></i> Highest Priority</span>
+                            <span><i class="fas fa-check"></i> 24/7 Response</span>
+                            <span><i class="fas fa-check"></i> Professional Support</span>
+                        </div>
+                        <button class="card-button emergency">Emergency Report</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <p class="section-subtitle">Get in touch with our support team - we're here to help!</p>
+                
+                <div class="contact-container-simple">
+                    <div class="contact-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-headset"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure & Confidential</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Quick Response</span>
+                        </div>
+                    </div>
+                    
+                    <form id="contact-form" class="contact-form-simple">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name" class="form-label">Name <span class="required">*</span></label>
+                                <input type="text" id="contact-name" name="name" class="form-input" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contact-email" class="form-label">Email <span class="required">*</span></label>
+                                <input type="email" id="contact-email" name="email" class="form-input" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-subject" class="form-label">Subject <span class="required">*</span></label>
+                            <select id="contact-subject" name="subject" class="form-select" required>
+                                <option value="">What can we help you with?</option>
+                                <option value="General Inquiry">General Inquiry</option>
+                                <option value="Technical Support">Technical Support</option>
+                                <option value="Report Issue">Report Issue</option>
+                                <option value="Account Help">Account Help</option>
+                                <option value="Feedback">Feedback</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-message" class="form-label">Message <span class="required">*</span></label>
+                            <textarea id="contact-message" name="message" class="form-textarea" rows="6" placeholder="Please describe your inquiry or issue in detail. The more information you provide, the better we can assist you..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary contact-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            <span class="btn-text">Send Message</span>
+                            <div class="spinner"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="form-section" class="form-section">
+            <div class="container">
+                <button class="back-button" onclick="showReportSection()">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Report Types
+                </button>
+                
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2 id="form-title">Report Form</h2>
+                        <p id="form-subtitle">Please provide detailed information about your concern</p>
+                    </div>
+
+                    <form id="report-form" class="report-form">
+                        <div class="form-grid" id="form-fields">
+                            <!-- Dynamic form fields will be inserted here -->
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" onclick="showReportSection()">Cancel</button>
+                            <button type="submit" class="btn-primary" id="submit-btn">
+                                <span class="btn-text">Submit Report</span>
+                                <div class="spinner"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Cipher Security</span>
+                    </div>
+                    <p>Protecting Discord communities through secure reporting and professional investigation.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <a href="#privacy">Privacy Policy</a>
+                        <a href="#terms">Terms of Service</a>
+                        <a href="#help">Help Center</a>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Emergency</h4>
+                        <a href="tel:911">Emergency Services: 911</a>
+                        <a href="#crisis">Crisis Helpline</a>
+                        <a href="#immediate">Immediate Support</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cipher Security. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success/Error Modals -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content success">
+            <i class="fas fa-check-circle"></i>
+            <h3>Report Submitted Successfully</h3>
+            <p>Your report has been received and will be reviewed by our team. You will receive a confirmation shortly.</p>
+            <button onclick="closeModal('success-modal')">Close</button>
+        </div>
+    </div>
+
+    <div id="error-modal" class="modal">
+        <div class="modal-content error">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Submission Error</h3>
+            <p id="error-message">There was an error submitting your report. Please try again or contact support.</p>
+            <button onclick="closeModal('error-modal')">Close</button>
+        </div>
+    </div>
+
+    <!-- Auth modal removed for static deployment -->
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
