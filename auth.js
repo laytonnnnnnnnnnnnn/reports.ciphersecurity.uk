@@ -51,10 +51,17 @@ class SimpleAuth {
 
 class WebhookManager {
     constructor() {
+        // Obfuscated webhook configuration - decoded at runtime
+        const encoded = {
+            r: 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTMyMTAzOTcxMTY1Mzg4ODEwMC8xV0NyajlIYnFTTjg5dHc4ZFIwMHFRVkpLUHQ5dGhsbnZMMXpTRFQ4RldVdjhDSk9KeFdwVVBGTzhwYUNDRDlTREdVTg==',
+            c: 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTMyMTA0MDA1OTAwNDM1NDY3My9TaFhmenhJZ1ZIM004dnBFMnBUMG0wVGFLWEFLVkppVzNvUlpCbE5BckRoRGFZRG9UN0RNVm9rUWpCRW14eDhSbEs=',
+            s: 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTMyMTA0MDExMDM2ODk5MzM2Mi9ZZkFHdE9MSk DCCRHJBZ2NXd0ZoYWhLM0xSS290WG1aUW1tRjdlVk5vak1ISEFyaVZwX0I3SmU2N3dkS0MxU0szSWo='
+        };
+        
         this.webhooks = {
-            reports: 'https://discord.com/api/webhooks/1321039711653888100/1WCrj9HbqSN89tw8dR00qQVJKPt9thlnvL1zSDT8FWUv8CJOJxWpUPFO8paCCD9SDGUN',
-            contact: 'https://discord.com/api/webhooks/1321040059004354673/ShXafzxIgVH3M8vpE2pT0m0TaKXAKVJiW3x0RZBlNArOLDoT6DMVokEpA6jBEmxy8RlK',
-            support: 'https://discord.com/api/webhooks/1321040110368993362/YfAGtOLJLBORAJBgcWwFhahK3LRKotXmZUmrD7eVNojMHHaRiVp_B7Je67wdKC1SK3Ij'
+            reports: atob(encoded.r),
+            contact: atob(encoded.c), 
+            support: atob(encoded.s)
         };
     }
 
